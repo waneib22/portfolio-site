@@ -318,6 +318,7 @@ export default function Home() {
           <nav className="flex items-center gap-6">
             <a href="#work">Projects</a>
             <a href="#about">About</a>
+            <a href="#journey">Journey</a>
             <a href="#contact">Contact</a>
           </nav>
         </header>
@@ -699,7 +700,7 @@ export default function Home() {
         </section>
 
         <footer className="flex flex-wrap items-center justify-between gap-4 text-xs text-muted">
-          <p>Crafted with Next.js, TypeScript, and a focus on decision intelligence.</p>
+          <p>Crafted with Next.js, TypeScript, and Tailwind CSS.</p>
           <p>Based in Paris, France.</p>
         </footer>
       </div>
