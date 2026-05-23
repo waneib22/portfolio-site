@@ -182,7 +182,7 @@ const personalPhotos = [
   },
   {
     src: "/images/personal/barcelona.jpg",
-    caption: "Barcelona — Sagrada Família",
+    caption: "Barcelona — Park Güell",
   },
   {
     src: "/images/personal/lake-como.jpg",
@@ -190,11 +190,15 @@ const personalPhotos = [
   },
   {
     src: "/images/personal/amsterdam.jpg",
-    caption: "Amsterdam, Netherlands",
+    caption: "Amsterdam — canals",
   },
   {
     src: "/images/personal/lucerne.jpg",
     caption: "Lucerne — Jesuitenkirche",
+  },
+  {
+    src: "/images/personal/etretat.jpg",
+    caption: "Étretat — Falaise d'Aval, Normandy",
   },
 ];
 
@@ -601,11 +605,12 @@ export default function Home() {
               work, different from data but just as worth doing.
             </p>
             <p>
-              Outside of school, travel has become a habit — Lucerne, Milan,
-              Barcelona, Amsterdam, and most recently Dakar. Each trip is a
-              chance to break the routine and look at the world from a different
-              angle. Dakar stayed with me the longest: a way of staying close to
-              West Africa, where my story started.
+              Outside of school, I travel when I can — a few European trips
+              (Lucerne, Milan, Barcelona, Amsterdam) and the cliffs of Étretat
+              closer to home. Dakar stayed with me the longest: a way of staying
+              close to West Africa, where my story started. Photography goes
+              with all of this — paying attention to what&apos;s in front of me
+              long enough to want to keep it. Most of the shots below are mine.
             </p>
           </div>
         </section>
