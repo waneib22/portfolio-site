@@ -351,9 +351,10 @@ export default function Home() {
             <a
               className="rounded-full border border-stroke px-6 py-3 text-xs font-semibold uppercase tracking-[0.2em] text-muted transition hover:-translate-y-0.5"
               href="/cv-ibrahima-wane.pdf"
-              download
+              target="_blank"
+              rel="noreferrer"
             >
-              Download CV
+              View CV
             </a>
           </div>
         </section>
