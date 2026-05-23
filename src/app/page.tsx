@@ -146,6 +146,10 @@ const education = [
     period: "2023 - 2025",
     highlights: [
       "Coursework: advanced machine learning, optimization, data warehousing, big data systems.",
+      {
+        text: "Master's thesis: L'explicabilité dans les systèmes de recommandation",
+        href: "/master-thesis.pdf",
+      },
       "Conference lead for the Paris Dauphine Afrique student association.",
     ],
   },
@@ -332,9 +336,10 @@ export default function Home() {
           <h1 className="section-title text-4xl md:text-5xl">Ibrahima Wane</h1>
           <div className="h-1 w-10 rounded-full bg-[color:var(--accent-warm)]" />
           <p className="text-base text-muted md:text-lg">
-            Data scientist building ML systems end to end — from messy raw data to
-            explainable models and deployed services. Data science apprentice at
-            Société Générale and a MIAGE master&apos;s graduate from Paris Dauphine.
+            Data scientist with 2 years of hands-on banking experience, building
+            ML systems end to end — from messy raw data to explainable models and
+            deployed services. Currently at Société Générale; MIAGE master&apos;s
+            graduate from Paris Dauphine.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
             <a
@@ -490,12 +495,28 @@ export default function Home() {
                   {item.school} · {item.period}
                 </p>
                 <ul className="mt-3 space-y-2 text-sm text-muted">
-                  {item.highlights.map((highlight) => (
-                    <li key={highlight} className="flex items-start gap-3">
-                      <span className="mt-1 h-2 w-2 rounded-full bg-[color:var(--accent)]" />
-                      {highlight}
-                    </li>
-                  ))}
+                  {item.highlights.map((highlight) => {
+                    const isLink = typeof highlight !== "string";
+                    const key = isLink ? highlight.text : highlight;
+                    return (
+                      <li key={key} className="flex items-start gap-3">
+                        <span className="mt-1 h-2 w-2 rounded-full bg-[color:var(--accent)]" />
+                        {isLink ? (
+                          <a
+                            href={highlight.href}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="text-[color:var(--accent)] hover:underline"
+                          >
+                            {highlight.text}
+                            <span className="ml-1 text-muted">[PDF]</span>
+                          </a>
+                        ) : (
+                          highlight
+                        )}
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             ))}
