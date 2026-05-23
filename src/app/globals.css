@@ -90,22 +90,23 @@ a:hover {
   background: rgba(255, 255, 255, 0.6);
 }
 
-.icon-tile {
-  display: flex;
+.skill-chip {
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  height: 64px;
-  width: 64px;
-  border-radius: 18px;
+  gap: 0.5rem;
+  border-radius: 999px;
   border: 1px solid var(--stroke);
   background: rgba(255, 255, 255, 0.75);
-  box-shadow: 0 10px 20px rgba(15, 13, 10, 0.08);
+  padding: 0.4rem 0.85rem;
+  font-size: 0.85rem;
+  color: var(--foreground);
+  box-shadow: 0 6px 14px rgba(15, 13, 10, 0.06);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.icon-tile:hover {
+.skill-chip:hover {
   transform: translateY(-2px);
-  box-shadow: 0 16px 30px rgba(15, 13, 10, 0.12);
+  box-shadow: 0 12px 24px rgba(15, 13, 10, 0.1);
 }
 
 .text-muted {

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useMemo, useState } from "react";
 
 const highlights = [
@@ -25,109 +26,86 @@ const focusAreas = [
   "Data pipelines for reporting",
 ];
 
-const projectFilters = ["All", "Data Science", "Data Engineering", "Product"] as const;
+const projectFilters = ["All", "Data Science", "Data Engineering"] as const;
 
 type ProjectFilter = (typeof projectFilters)[number];
 
 type Project = {
   title: string;
   period: string;
-  category: ProjectFilter;
+  category: Exclude<ProjectFilter, "All">;
   summary: string;
   impact: string[];
   stack: string[];
+  repo: string;
+  caseStudy?: string;
 };
 
 const projects: Project[] = [
   {
-    title: "Banking Recommendation Engine Rebuild",
-    period: "2024 - Present",
+    title: "Credit Risk Scoring — Freddie Mac",
+    period: "2026",
     category: "Data Science",
     summary:
-      "Reworked the recommendation logic with behavioral signals to improve relevance and trust for advisors.",
+      "End-to-end default risk model on Freddie Mac mortgage loans: reproducible Kedro pipeline, SHAP explainability, a Streamlit app, and a RAG documentation assistant.",
     impact: [
-      "Unified business rules with new behavioral variables",
-      "Delivered explanation cards showing the top drivers per client",
+      "Chose logistic regression (AUC 0.74) over XGBoost for regulatory interpretability",
+      "SHAP revealed the feature ranked #1 by importance actually hurt out-of-sample AUC",
     ],
-    stack: ["Python", "PySpark", "SQL", "SHAP", "Dataiku"],
+    stack: ["Python", "scikit-learn", "XGBoost", "SHAP", "Kedro", "Streamlit"],
+    repo: "https://github.com/waneib22/credit-risk-scoring",
+    caseStudy: "/projects/credit-risk-scoring",
   },
   {
-    title: "Geo-Marketing Branch Strategy",
+    title: "MLOps — Road Accident Severity",
+    period: "2026",
+    category: "Data Engineering",
+    summary:
+      "MLOps pipeline classifying French road-accident severity (BAAC 2021) behind a containerized FastAPI service with inference, retraining, and monitoring endpoints.",
+    impact: [
+      "Random Forest on ~54k accidents served via FastAPI + Docker Compose",
+      "Endpoints for prediction, on-demand retraining, health and metrics, with CI",
+    ],
+    stack: ["Python", "Random Forest", "FastAPI", "Docker", "CI/CD"],
+    repo: "https://github.com/waneib22/mlops-accidents/tree/ibrahima",
+    caseStudy: "/projects/mlops-accidents",
+  },
+  {
+    title: "Bank Marketing Conversion Prediction",
     period: "2024",
     category: "Data Science",
     summary:
-      "Benchmarked 500+ retail points using traffic, density, and competition signals to guide expansion and closure.",
+      "Binary classification predicting term-deposit subscription from a bank marketing campaign, handling strong class imbalance end to end.",
     impact: [
-      "Mapped branch footprints against competitor coverage",
-      "Recommended closures and new sites based on deficit scoring",
+      "Compared logistic regression, random forest, SVC and KNN on imbalanced data",
+      "Applied SMOTE resampling after full EDA on categorical and numeric drivers",
     ],
-    stack: ["Python", "Geo analytics", "Tableau", "SQL"],
+    stack: ["Python", "scikit-learn", "SMOTE", "Pandas"],
+    repo: "https://github.com/waneib22/BankMarketingML",
+    caseStudy: "/projects/bank-marketing",
   },
   {
-    title: "Research Data Reporting Automation",
-    period: "2023",
-    category: "Data Engineering",
+    title: "Bayesian Inverse Reinforcement Learning",
+    period: "2024",
+    category: "Data Science",
     summary:
-      "Built automated SQL extracts and reporting workflows to improve research support visibility.",
+      "Recovering reward functions from observed behavior in a gridworld MDP using Bayesian IRL with the PolicyWalk sampling algorithm.",
     impact: [
-      "Automated recurring reports and extractions",
-      "Improved internal documentation for adoption",
+      "Built a gridworld MDP, policy iteration, and an imperfect-tutor simulator",
+      "Inferred rewards via Bayesian PolicyWalk sampling over Q-values",
     ],
-    stack: ["SQL", "Reporting", "Documentation"],
-  },
-  {
-    title: "Bank Intranet Modernization",
-    period: "2023",
-    category: "Product",
-    summary:
-      "Redesigned the intranet experience with secure file access, advanced search, and streamlined navigation.",
-    impact: [
-      "Modernized UI and information architecture",
-      "Added secure access control and document previews",
-    ],
-    stack: ["Spring Boot", "Angular", "MySQL"],
-  },
-];
-
-const dashboardLabels = ["Conversion", "Coverage", "Advisor Trust"];
-
-const dashboardSeries = {
-  "Behavioral Signals": [72, 65, 58],
-  "Optimized Rules": [84, 74, 69],
-} as const;
-
-type DashboardView = keyof typeof dashboardSeries;
-
-const notebooks = [
-  {
-    title: "Recommendation Explainability Lab",
-    summary:
-      "Notebook walkthrough of SHAP-based explanations for banking recommendations.",
-    href: "/notebooks/recommendation-explainability.html",
-    stack: ["Python", "SHAP", "Pandas"],
-  },
-  {
-    title: "Geo-Marketing Footfall Scoring",
-    summary:
-      "Location scoring model combining traffic, density, and competition signals.",
-    href: "/notebooks/geomarketing-footfall.html",
-    stack: ["Python", "Geo", "Scikit-learn"],
-  },
-  {
-    title: "Branch Network Optimization",
-    summary:
-      "Scenario analysis notebook for opening, closing, or moving branches.",
-    href: "/notebooks/branch-optimization.html",
-    stack: ["Python", "Optimization", "Plotting"],
+    stack: ["Python", "Reinforcement Learning", "Bayesian", "NumPy"],
+    repo: "https://github.com/waneib22/bayesian_irl",
+    caseStudy: "/projects/bayesian-irl",
   },
 ];
 
 const experience = [
   {
-    company: "Societe Generale",
+    company: "Société Générale",
     role: "Data Scientist Apprentice",
     period: "Sep 2024 - Present",
-    location: "La Defense, France",
+    location: "La Défense, France",
     bullets: [
       "Redesigned a banking recommendation engine by optimizing business rules and integrating behavioral signals.",
       "Built an explainability dashboard with SHAP to surface the top 3 drivers per recommendation.",
@@ -148,7 +126,7 @@ const experience = [
     stack: ["Spring Boot", "Angular", "MySQL"],
   },
   {
-    company: "University Paris Dauphine",
+    company: "Université Paris Dauphine",
     role: "Data Engineer Intern (Research Support)",
     period: "Jan 2023 - Mar 2023",
     location: "Paris, France",
@@ -163,63 +141,119 @@ const experience = [
 
 const education = [
   {
-    program: "Master MIAGE - Business Intelligence",
-    school: "University Paris Dauphine",
+    program: "Master MIAGE — Business Intelligence",
+    school: "Université Paris Dauphine",
     period: "2023 - 2025",
     highlights: [
-      "Advanced machine learning, optimization, data warehousing, and big data systems.",
-      "Conference lead for Paris Dauphine Afrique.",
+      "Coursework: advanced machine learning, optimization, data warehousing, big data systems.",
+      "Conference lead for the Paris Dauphine Afrique student association.",
+    ],
+  },
+  {
+    program: "Bachelor's Year 3 — MIAGE",
+    school: "Université Paris Dauphine",
+    period: "2022 - 2023",
+    highlights: [
+      "Coursework: data analysis (regression, PCA, statistical tests), probability & statistics, linear programming (simplex, duality), relational databases & SQL.",
+    ],
+  },
+  {
+    program: "Bachelor's — Mathematics & Economics",
+    school: "Université Claude Bernard Lyon 1",
+    period: "2019 - 2022",
+    highlights: [
+      "Coursework: data analysis (PCA, clustering, supervised classification, neural networks), advanced probability & statistics, econometrics, operations research.",
     ],
   },
 ];
 
-const toolkit = [
+const personalPhotos = [
   {
-    title: "Languages",
+    src: "/images/personal/dauphine-afrique.jpg",
+    caption: "Moderating “Journalism in Africa” — Paris Dauphine Afrique",
+  },
+  {
+    src: "/images/personal/graduation.jpg",
+    caption: "Master 2 graduation — Université Paris Dauphine",
+  },
+  {
+    src: "/images/personal/dakar.jpg",
+    caption: "Dakar — African Renaissance Monument",
+  },
+  {
+    src: "/images/personal/barcelona.jpg",
+    caption: "Barcelona — Sagrada Família",
+  },
+  {
+    src: "/images/personal/lake-como.jpg",
+    caption: "Lake Como, Italy",
+  },
+  {
+    src: "/images/personal/amsterdam.jpg",
+    caption: "Amsterdam, Netherlands",
+  },
+  {
+    src: "/images/personal/lucerne.jpg",
+    caption: "Lucerne — Jesuitenkirche",
+  },
+];
+
+type SkillItem = { name: string; icon?: string };
+type SkillGroup = { title: string; items: SkillItem[] };
+
+const toolkit: SkillGroup[] = [
+  {
+    title: "Languages & Databases",
     items: [
       { name: "Python", icon: "/icons/python.svg" },
-      { name: "Java (OpenJDK)", icon: "/icons/openjdk.svg" },
+      { name: "SQL" },
+      { name: "Java", icon: "/icons/openjdk.svg" },
       { name: "R", icon: "/icons/r.svg" },
-      { name: "C++", icon: "/icons/cplusplus.svg" },
+      { name: "C/C++", icon: "/icons/cplusplus.svg" },
       { name: "PostgreSQL", icon: "/icons/postgresql.svg" },
       { name: "MySQL", icon: "/icons/mysql.svg" },
+      { name: "MongoDB" },
     ],
   },
   {
-    title: "Data Science",
+    title: "Machine Learning",
     items: [
-      { name: "Pandas", icon: "/icons/pandas.svg" },
-      { name: "Scikit-learn", icon: "/icons/scikitlearn.svg" },
+      { name: "pandas", icon: "/icons/pandas.svg" },
+      { name: "NumPy" },
+      { name: "scikit-learn", icon: "/icons/scikitlearn.svg" },
+      { name: "XGBoost" },
+      { name: "SHAP" },
       { name: "Matplotlib", icon: "/icons/matplotlib.svg" },
-      { name: "Jupyter", icon: "/icons/jupyter.svg" },
     ],
   },
   {
-    title: "Data Platforms",
+    title: "MLOps & Engineering",
+    items: [
+      { name: "FastAPI" },
+      { name: "Streamlit" },
+      { name: "Kedro" },
+      { name: "Docker", icon: "/icons/docker.svg" },
+      { name: "GitHub Actions" },
+      { name: "Jenkins", icon: "/icons/jenkins.svg" },
+      { name: "Terraform", icon: "/icons/terraform.svg" },
+      { name: "Azure", icon: "/icons/azure.svg" },
+      { name: "Bash", icon: "/icons/gnubash.svg" },
+    ],
+  },
+  {
+    title: "Data & BI",
     items: [
       { name: "Apache Spark", icon: "/icons/apachespark.svg" },
       { name: "Dataiku", icon: "/icons/dataiku.svg" },
       { name: "Tableau", icon: "/icons/tableau.svg" },
       { name: "Power BI", icon: "/icons/powerbi.svg" },
-    ],
-  },
-  {
-    title: "Engineering",
-    items: [
-      { name: "Docker", icon: "/icons/docker.svg" },
-      { name: "Microsoft Azure", icon: "/icons/azure.svg" },
-      { name: "Terraform", icon: "/icons/terraform.svg" },
-      { name: "Jenkins", icon: "/icons/jenkins.svg" },
-      { name: "Bash", icon: "/icons/gnubash.svg" },
+      { name: "Jupyter", icon: "/icons/jupyter.svg" },
     ],
   },
 ];
 
 export default function Home() {
   const [activeFilter, setActiveFilter] = useState<ProjectFilter>("All");
-  const [dashboardView, setDashboardView] = useState<DashboardView>(
-    "Behavioral Signals",
-  );
   const [showPhoto, setShowPhoto] = useState(true);
 
   const filteredProjects = useMemo(() => {
@@ -256,7 +290,7 @@ export default function Home() {
             </span>
             {showPhoto ? (
               <Image
-                src="/profile.jpg"
+                src="/profile.png"
                 alt="Portrait of Ibrahima Wane"
                 fill
                 sizes="80px"
@@ -269,8 +303,9 @@ export default function Home() {
           <h1 className="section-title text-4xl md:text-5xl">Ibrahima Wane</h1>
           <div className="h-1 w-10 rounded-full bg-[color:var(--accent-warm)]" />
           <p className="text-base text-muted md:text-lg">
-            Data scientist focused on explainable ML, geo-marketing, and decision
-            intelligence systems for complex business challenges.
+            Data scientist building ML systems end to end — from messy raw data to
+            explainable models and deployed services. Data science apprentice at
+            Société Générale and a MIAGE master&apos;s graduate from Paris Dauphine.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
             <a
@@ -344,103 +379,23 @@ export default function Home() {
                     </span>
                   ))}
                 </div>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section id="dashboard" className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-          <div className="space-y-4">
-            <p className="eyebrow">Dynamic dashboard</p>
-            <h2 className="section-title text-3xl">Recommendation quality view</h2>
-            <p className="text-muted">
-              A lightweight example of the interactive components I build for
-              advisors and analysts.
-            </p>
-            <div className="flex flex-wrap gap-3">
-              {(Object.keys(dashboardSeries) as DashboardView[]).map((view) => (
-                <button
-                  key={view}
-                  type="button"
-                  onClick={() => setDashboardView(view)}
-                  className={`rounded-full border px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] transition ${
-                    dashboardView === view
-                      ? "border-transparent bg-[color:var(--accent-warm)] text-white"
-                      : "border-stroke text-muted hover:border-[color:var(--accent-warm)]"
-                  }`}
-                >
-                  {view}
-                </button>
-              ))}
-            </div>
-            <div className="grid gap-3">
-              {dashboardLabels.map((label, index) => (
-                <div key={label} className="flex items-center justify-between">
-                  <span className="text-sm text-muted">{label}</span>
-                  <span className="text-lg font-semibold text-[color:var(--accent-strong)]">
-                    {dashboardSeries[dashboardView][index]}%
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="card flex flex-col justify-between gap-6 p-6">
-            <div className="flex items-center justify-between">
-              <p className="text-sm font-semibold text-muted">Signal uplift</p>
-              <span className="pill">Q4 snapshot</span>
-            </div>
-            <div className="flex h-48 items-end justify-around gap-6">
-              {dashboardSeries[dashboardView].map((value, index) => (
-                <div key={dashboardLabels[index]} className="flex flex-col items-center gap-3">
-                  <div className="relative flex h-40 w-10 items-end justify-center rounded-full bg-[color:rgba(11,107,95,0.12)]">
-                    <div
-                      className="w-10 rounded-full bg-[color:var(--accent)]"
-                      style={{ height: `${value}%` }}
-                    />
-                  </div>
-                  <span className="text-xs uppercase tracking-[0.2em] text-muted">
-                    {dashboardLabels[index]}
-                  </span>
-                </div>
-              ))}
-            </div>
-            <p className="text-sm text-muted">
-              This view demonstrates how performance changes between signal
-              strategies in a clean, executive-friendly layout.
-            </p>
-          </div>
-        </section>
-
-        <section id="notebooks" className="space-y-8">
-          <div>
-            <p className="eyebrow">Notebooks and demos</p>
-            <h2 className="section-title text-3xl">Fast notebook previews</h2>
-            <p className="text-muted">
-              Export notebooks with nbconvert and drop them into the /public
-              folder for instant previews.
-            </p>
-          </div>
-          <div className="grid gap-6 lg:grid-cols-3">
-            {notebooks.map((notebook) => (
-              <article key={notebook.title} className="card flex h-full flex-col p-6">
-                <h3 className="section-title text-xl">{notebook.title}</h3>
-                <p className="mt-2 text-sm text-muted">{notebook.summary}</p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {notebook.stack.map((item) => (
-                    <span key={item} className="tag">
-                      {item}
-                    </span>
-                  ))}
-                </div>
-                <div className="mt-auto pt-6">
+                <div className="mt-5 flex flex-wrap items-center gap-5">
+                  {project.caseStudy ? (
+                    <Link
+                      className="inline-flex items-center gap-2 text-sm font-semibold text-[color:var(--accent)]"
+                      href={project.caseStudy}
+                    >
+                      Read case study
+                      <span aria-hidden="true">→</span>
+                    </Link>
+                  ) : null}
                   <a
-                    className="inline-flex items-center gap-2 text-sm font-semibold text-[color:var(--accent)]"
-                    href={notebook.href}
+                    className="inline-flex items-center gap-2 text-sm font-semibold text-muted hover:text-[color:var(--accent)]"
+                    href={project.repo}
                     target="_blank"
                     rel="noreferrer"
                   >
-                    View notebook
+                    View code
                     <span aria-hidden="true">→</span>
                   </a>
                 </div>
@@ -494,8 +449,13 @@ export default function Home() {
         <section className="grid gap-8 lg:grid-cols-[1fr_1.1fr]">
           <div className="card space-y-4 p-6">
             <p className="eyebrow">Education</p>
-            {education.map((item) => (
-              <div key={item.program}>
+            {education.map((item, idx) => (
+              <div
+                key={item.program}
+                className={
+                  idx > 0 ? "border-t border-[color:var(--stroke)] pt-4" : ""
+                }
+              >
                 <h3 className="section-title text-xl">{item.program}</h3>
                 <p className="text-sm text-muted">
                   {item.school} · {item.period}
@@ -523,17 +483,20 @@ export default function Home() {
                   <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted">
                     {group.title}
                   </p>
-                  <div className="mt-4 grid grid-cols-4 gap-3 sm:grid-cols-6">
+                  <div className="mt-4 flex flex-wrap gap-2.5">
                     {group.items.map((item) => (
-                      <div key={item.name} className="icon-tile">
-                        <Image
-                          src={item.icon}
-                          alt={item.name}
-                          width={32}
-                          height={32}
-                          className="h-8 w-8 object-contain"
-                        />
-                      </div>
+                      <span key={item.name} className="skill-chip">
+                        {item.icon ? (
+                          <Image
+                            src={item.icon}
+                            alt=""
+                            width={18}
+                            height={18}
+                            className="h-[18px] w-[18px] object-contain"
+                          />
+                        ) : null}
+                        {item.name}
+                      </span>
                     ))}
                   </div>
                 </div>
@@ -544,12 +507,12 @@ export default function Home() {
 
         <section id="contact" className="card grid gap-6 p-6 md:grid-cols-[1.2fr_0.8fr]">
           <div className="space-y-4">
-            <p className="eyebrow">Let us connect</p>
-            <h2 className="section-title text-3xl">Let us build something sharp</h2>
+            <p className="eyebrow">Get in touch</p>
+            <h2 className="section-title text-3xl">Let&apos;s turn data into decisions</h2>
             <p className="text-muted">
-              If you are hiring for data science or analytics roles, I would
-              love to discuss how I can help your team deliver measurable
-              impact.
+              I&apos;m looking for a full-time role as a data scientist or data
+              analyst. If you&apos;re hiring, I&apos;d love to talk about how I can
+              help your team ship models that actually reach production.
             </p>
           </div>
           <div className="space-y-3 text-sm">
@@ -560,12 +523,6 @@ export default function Home() {
               <a href="mailto:ibrahima.wane@outlook.fr" className="text-lg font-semibold">
                 ibrahima.wane@outlook.fr
               </a>
-            </div>
-            <div>
-              <p className="text-xs uppercase tracking-[0.2em] text-muted">
-                Phone
-              </p>
-              <p className="text-lg font-semibold">+33 6 13 95 89 03</p>
             </div>
             <div>
               <p className="text-xs uppercase tracking-[0.2em] text-muted">
@@ -590,6 +547,94 @@ export default function Home() {
                 </a>
               </div>
             </div>
+          </div>
+        </section>
+
+        <section id="journey" className="card space-y-6 p-6 md:p-8">
+          <div>
+            <p className="eyebrow">Journey</p>
+            <h2 className="section-title text-3xl">From Nouakchott to data science</h2>
+          </div>
+          <div className="flex flex-wrap items-center gap-2 text-xs uppercase tracking-[0.18em] text-muted">
+            <span className="rounded-full border border-stroke bg-white/60 px-3 py-1">
+              Nouakchott
+            </span>
+            <span aria-hidden="true">→</span>
+            <span className="rounded-full border border-stroke bg-white/60 px-3 py-1">
+              2019 · Lyon
+            </span>
+            <span aria-hidden="true">→</span>
+            <span className="rounded-full border border-stroke bg-white/60 px-3 py-1">
+              2023 · Paris
+            </span>
+          </div>
+          <div className="space-y-4 text-[0.95rem] leading-relaxed text-muted">
+            <p>
+              I grew up in Nouakchott, Mauritania, where a fascination with
+              mathematics took hold early. The numbers were the easy part; what
+              stuck was how they could be used to describe and decide. That
+              curiosity drifted toward statistics, then toward data — anywhere a
+              problem could be framed clearly and answered with evidence.
+            </p>
+            <p>
+              On August 22, 2019, at 18, I packed my bags and left for France.
+              The first stop was Lyon, at Université Lyon 1 Claude Bernard, where
+              I began a Bachelor&apos;s in Mathematics &amp; Economics. The mix
+              of formal proof and real-world models was a good start, but it
+              pushed me toward a more applied path.
+            </p>
+            <p>
+              So I reoriented. I moved to Paris and joined the MIAGE program at
+              Université Paris Dauphine — a curriculum built around the meeting
+              point of computer science, decision-making, and data. It turned out
+              to be the right fit. I earned my Master 2 there, and the projects
+              on this site are the work that came out of that period: explainable
+              models, MLOps services, real datasets, real trade-offs.
+            </p>
+            <p>
+              Alongside my studies, I led the conference pole of Paris Dauphine
+              Afrique, the university&apos;s African student association. We put
+              together three conferences — on journalism in Africa, on African
+              sovereignty, and on the war in the DRC — and a round table on
+              African weddings between tradition and modernity. Bringing those
+              conversations to a French university audience was its own kind of
+              work, different from data but just as worth doing.
+            </p>
+            <p>
+              Outside of school, travel has become a habit — Lucerne, Milan,
+              Barcelona, Amsterdam, and most recently Dakar. Each trip is a
+              chance to break the routine and look at the world from a different
+              angle. Dakar stayed with me the longest: a way of staying close to
+              West Africa, where my story started.
+            </p>
+          </div>
+        </section>
+
+        <section id="beyond" className="space-y-8">
+          <div>
+            <p className="eyebrow">Beyond the work</p>
+            <h2 className="section-title text-3xl">Learn more about me</h2>
+            <p className="mt-2 text-muted">
+              A few snapshots — milestones, travels, and student-life work.
+            </p>
+          </div>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {personalPhotos.map((photo) => (
+              <figure key={photo.src} className="card overflow-hidden">
+                <div className="relative aspect-[4/5] w-full bg-[color:rgba(11,107,95,0.06)]">
+                  <Image
+                    src={photo.src}
+                    alt={photo.caption}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover"
+                  />
+                </div>
+                <figcaption className="px-4 py-3 text-xs text-muted">
+                  {photo.caption}
+                </figcaption>
+              </figure>
+            ))}
           </div>
         </section>
 
