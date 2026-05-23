@@ -15,7 +15,7 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://portfolio-ibrahima-s-projects3.vercel.app"),
+  metadataBase: new URL("https://ibrahima-wane.com"),
   title: "Ibrahima Wane | Data Scientist",
   description:
     "Data scientist building ML systems end to end — from raw data to explainable models and deployed services. Projects in credit risk, MLOps, and inverse reinforcement learning.",
