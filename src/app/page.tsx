@@ -167,38 +167,61 @@ const education = [
   },
 ];
 
-const personalPhotos = [
+type PersonalPhoto = {
+  src: string;
+  caption: string;
+  width: number;
+  height: number;
+};
+
+const personalPhotos: PersonalPhoto[] = [
   {
     src: "/images/personal/dauphine-afrique.jpg",
     caption: "Moderating “Journalism in Africa” — Paris Dauphine Afrique",
+    width: 828,
+    height: 625,
   },
   {
     src: "/images/personal/graduation.jpg",
     caption: "Master 2 graduation — Université Paris Dauphine",
+    width: 768,
+    height: 1024,
   },
   {
     src: "/images/personal/dakar.jpg",
     caption: "Dakar — African Renaissance Monument",
-  },
-  {
-    src: "/images/personal/barcelona.jpg",
-    caption: "Barcelona — Park Güell",
-  },
-  {
-    src: "/images/personal/lake-como.jpg",
-    caption: "Lake Como, Italy",
-  },
-  {
-    src: "/images/personal/amsterdam.jpg",
-    caption: "Amsterdam — canals",
-  },
-  {
-    src: "/images/personal/lucerne.jpg",
-    caption: "Lucerne — Jesuitenkirche",
+    width: 769,
+    height: 1024,
   },
   {
     src: "/images/personal/etretat.jpg",
     caption: "Étretat — Falaise d'Aval, Normandy",
+    width: 1600,
+    height: 1200,
+  },
+  {
+    src: "/images/personal/barcelona.jpg",
+    caption: "Barcelona — Park Güell",
+    width: 960,
+    height: 1280,
+  },
+  {
+    src: "/images/personal/lake-como.jpg",
+    caption: "Lake Como, Italy",
+    width: 768,
+    height: 1024,
+  },
+  {
+    src: "/images/personal/amsterdam.jpg",
+    caption: "Amsterdam — canals",
+    width: 768,
+    height: 1024,
+  },
+  {
+    src: "/images/personal/lucerne.jpg",
+    caption: "Lucerne — Jesuitenkirche",
+    width: 768,
+    height: 1024,
   },
 ];
 
@@ -623,18 +646,20 @@ export default function Home() {
               A few snapshots — milestones, travels, and student-life work.
             </p>
           </div>
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="columns-1 gap-5 sm:columns-2 lg:columns-3">
             {personalPhotos.map((photo) => (
-              <figure key={photo.src} className="card overflow-hidden">
-                <div className="relative aspect-[4/5] w-full bg-[color:rgba(11,107,95,0.06)]">
-                  <Image
-                    src={photo.src}
-                    alt={photo.caption}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    className="object-cover"
-                  />
-                </div>
+              <figure
+                key={photo.src}
+                className="card mb-5 overflow-hidden break-inside-avoid"
+              >
+                <Image
+                  src={photo.src}
+                  alt={photo.caption}
+                  width={photo.width}
+                  height={photo.height}
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="block h-auto w-full"
+                />
                 <figcaption className="px-4 py-3 text-xs text-muted">
                   {photo.caption}
                 </figcaption>
