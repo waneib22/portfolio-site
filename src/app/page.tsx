@@ -192,10 +192,16 @@ const personalPhotos: PersonalPhoto[] = [
     height: 1024,
   },
   {
-    src: "/images/personal/dakar.jpg",
-    caption: "Dakar — African Renaissance Monument",
-    width: 769,
-    height: 1024,
+    src: "/images/personal/renaissance-dakar.jpg",
+    caption: "Dakar — Monument de la Renaissance Africaine",
+    width: 1200,
+    height: 1600,
+  },
+  {
+    src: "/images/personal/goree.jpg",
+    caption: "Île de Gorée, Senegal",
+    width: 1200,
+    height: 1600,
   },
   {
     src: "/images/personal/etretat.jpg",
@@ -210,10 +216,10 @@ const personalPhotos: PersonalPhoto[] = [
     height: 1280,
   },
   {
-    src: "/images/personal/lake-como.jpg",
-    caption: "Lake Como, Italy",
-    width: 768,
-    height: 1024,
+    src: "/images/personal/come.jpg",
+    caption: "Como — Duomo",
+    width: 1200,
+    height: 1600,
   },
   {
     src: "/images/personal/amsterdam.jpg",
