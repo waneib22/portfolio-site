@@ -270,7 +270,7 @@ const toolkit: SkillGroup[] = [
     items: [
       { name: "FastAPI", icon: "/icons/fastapi.svg" },
       { name: "Streamlit", icon: "/icons/streamlit.svg" },
-      { name: "Kedro" },
+      { name: "Kedro", icon: "/icons/kedro.svg" },
       { name: "Docker", icon: "/icons/docker.svg" },
       { name: "GitHub Actions", icon: "/icons/githubactions.svg" },
       { name: "Jenkins", icon: "/icons/jenkins.svg" },
