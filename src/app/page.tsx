@@ -43,6 +43,20 @@ type Project = {
 
 const projects: Project[] = [
   {
+    title: "Accessibility Atlas — Île-de-France",
+    period: "2026",
+    category: "Data Science",
+    summary:
+      "Mapping public-transit inequalities across the 1,297 communes of Île-de-France: a composite mobility score from open GTFS and INSEE data, used to identify 17 priority transit deserts.",
+    impact: [
+      "Composite score blending walk distance, daily frequency, and modal diversity, with a log-transform to keep the scale sensitive at the low end",
+      "17 priority deserts isolated by combining population (≥3,000) with a sub-median score — 10 of them in Seine-et-Marne, zero in the Transilien-served Yvelines",
+    ],
+    stack: ["Python", "GeoPandas", "Shapely", "SciPy", "Folium", "GTFS"],
+    repo: "https://github.com/waneib22/accessibility-atlas-idf",
+    caseStudy: "/projects/accessibility-atlas-idf",
+  },
+  {
     title: "Credit Risk Scoring — Freddie Mac",
     period: "2026",
     category: "Data Science",
