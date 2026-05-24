@@ -355,10 +355,29 @@ export default function AccessibilityAtlas() {
           <p>
             The output is a Folium-based interactive map: choropleth of the
             mobility score over commune boundaries, transit stops overlaid by
-            mode, and the priority deserts called out by name. The dashboard is
-            published via GitHub Pages — open the live link to pan around the
-            region and click any commune for its raw score components.
+            mode, and the priority deserts called out by name. Try it inline
+            below — pan around the region and click any commune for its raw
+            score components.
           </p>
+          <div className="card overflow-hidden p-2">
+            <iframe
+              src="/dashboards/accessibility-atlas/index.html"
+              title="Accessibility Atlas — interactive map"
+              loading="lazy"
+              className="h-[640px] w-full rounded-xl border-0 bg-white"
+            />
+          </div>
+          <div className="flex justify-end">
+            <a
+              href="/dashboards/accessibility-atlas/index.html"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-[color:var(--accent)]"
+            >
+              Open map full-screen
+              <span aria-hidden="true">→</span>
+            </a>
+          </div>
         </Section>
 
         <Section id="takeaways" eyebrow="09" title="Takeaways">
