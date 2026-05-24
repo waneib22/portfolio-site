@@ -664,11 +664,13 @@ export default function Home() {
               closer to home. Dakar stayed with me the longest: a way of staying
               close to West Africa, where my story started. Photography goes
               with all of this — paying attention to what&apos;s in front of me
-              long enough to want to keep it. Most of the shots below are mine.
+              long enough to want to keep it.
+              {/* TEMP HIDDEN 2026-05-24 → restore around 2026-06-07: append " Most of the shots below are mine." when re-enabling the Beyond the work gallery */}
             </p>
           </div>
         </section>
 
+        {/* TEMP HIDDEN 2026-05-24 → restore around 2026-06-07 (let LinkedIn audience focus on the technical content first, then re-enable personal gallery)
         <section id="beyond" className="space-y-8">
           <div>
             <p className="eyebrow">Beyond the work</p>
@@ -698,6 +700,7 @@ export default function Home() {
             ))}
           </div>
         </section>
+        */}
 
         <footer className="flex flex-wrap items-center justify-between gap-4 text-xs text-muted">
           <p>Crafted with Next.js, TypeScript, and Tailwind CSS.</p>
