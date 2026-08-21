@@ -43,6 +43,20 @@ type Project = {
 
 const projects: Project[] = [
   {
+    title: "HR Analytics — Predicting Employee Attrition",
+    period: "2026",
+    category: "Data Science",
+    summary:
+      "Attrition model for 1,470 employees, framed as a capacity plan rather than a classifier — and audited hard enough to argue against deploying it as an individual score.",
+    impact: [
+      "Hold-out AUC 0.808; reviewing the riskiest 10% of staff surfaces 38% of the year's leavers at a 62% hit rate, 3.9× better than random",
+      "Group audit found the model near-blind to the 51–60 band (10.7% flagged against 21.4% actual attrition), and that dropping protected attributes costs only 0.003 AUC because proxies rebuild them",
+    ],
+    stack: ["Python", "scikit-learn", "XGBoost", "SHAP", "imbalanced-learn"],
+    repo: "https://github.com/waneib22/hr-analytics-case-study",
+    caseStudy: "/projects/hr-attrition",
+  },
+  {
     title: "Accessibility Atlas — Île-de-France",
     period: "2026",
     category: "Data Science",
